@@ -1,0 +1,1 @@
+Include assets such as images here.
