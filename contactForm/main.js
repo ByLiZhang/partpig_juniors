@@ -1,22 +1,11 @@
 $(document).ready(initializeApp);
 
-// function addClickHandlersToElements(){
-//     $("button").on('click',submitForm);
-//     $('.close').on('click',function(){
-//         $('.modal').hide();
-//         $('.modal-overlay').hide();
-//     });
-//     $('.modal-overlay').on('click',function(){
-//         $('.modal').hide();
-//         $('.modal-overlay').hide();
-//     });
-// }
 function initializeApp(){
     addClickHandlersToElements();
 }
 
 function addClickHandlersToElements(){
-    // $("button").on('click',submitForm);
+    $("button").on('click',submitForm);
     $('.close').on('click',function(){
         $('.modal').hide();
         $('.modal-overlay').hide();
@@ -35,22 +24,21 @@ function showModal(){
 
 function submitForm(){
     debugger;
-    var inputContentArray =[$(".email"), $('.subject')[0].value, $(".name")[0].value,  $(".message")[0].value];
+    $("input").css('background-color','#fff');
+    $("textarea").css('background-color','#fff');
+    var inputContentArray =[$(".email"), $('.subject'), $(".name"),  $(".message")];
     for(var inputValueIndex =0; inputValueIndex<inputContentArray.length; inputValueIndex++) {
-        console.log("ok");
         if (inputContentArray[inputValueIndex][0].value==="") {
-            var incompleteInput = inputContentArray[inputValueIndex];
+            var incompleteInput = inputContentArray[inputValueIndex][0];
             var modalErrorMessage = `Please complete all input fields before submitting your inquiry.`;
-            // $(".modal p").text(`Please complete all input fields before submitting your inquiry.`);
             handleIncompleteInput(incompleteInput, modalErrorMessage);
             showModal();
-            // return;
         }
         else if ($(".email")[0].value.indexOf("@") < 0) {
             $(".modal p").text(`Please enter a valid email address`);
-            handleIncompleteInput();
+            var incompleteInput = inputContentArray[inputValueIndex][0];
+            handleIncompleteInput(incompleteInput);
             showModal();
-            return;
         }
     }
     var fullName = $(".name")[0].value;
@@ -63,6 +51,7 @@ function submitForm(){
 }
 
 function handleIncompleteInput(element, message) {
-    element.css('background-color', 'rgb(255, 153, 153)');
+    console.log(element);
+    $(element).css('background-color', 'rgb(255, 153, 153)');
     $(".modal p").text(message);
 }
